@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Planner - Sign Up</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Sign Up</h1>
+            <form action="/cadastro" method="POST">
+                <div class="txt_field">
+                    <input type="text" name="name">
+                    <span></span>
+                    <label>Full Name</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="nickname">
+                    <span></span>
+                    <label>Nickname</label>
+                </div>
+                <div class="txt_field">
+                    <input type="date" name="birthday">
+                    <span></span>
+                    <label>Birthday</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="email">
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password">
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <input type="submit" value="Sign Up" id="sign_up">
+            </form>
+        </div>
+    </body>
+</html>

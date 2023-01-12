@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Planner</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Calendar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+</head>
+<body>
+    {% for message in get_flashed_messages()%}
+        <h1>{{ user[1] }}</h1>
+    {% endfor %}
+    <section>
+        <div class="box">
+            <div class="container">
+                <div id="planner"></div>
+            </div>
+            <div class="signup_link">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+      
+
+    </section>
+    <script type="text/javascript" src="{{url_for('static', filename='script/dycalendar.js')}}"></script>
+    <script>
+        dycalendar.draw({
+            target: '#planner',
+            type: 'month',
+            dayformat: 'full',
+            monthformat: 'full',
+            highlighttargetdate: true,
+            prevnextbutton: 'show'
+        })
+    </script>
+</body>
+</html>
