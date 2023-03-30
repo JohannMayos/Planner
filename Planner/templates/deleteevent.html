@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Planner - Delete Event</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Delete Event</h1>
+            <form action="/delete event" method="POST">
+                <div class="txt_field">
+                    <input type="text" name="event_id">
+                    <span></span>
+                    <label>Event ID</label>
+                </div>
+                </div>
+                <input type="submit" value="Delete Event" id="delete_event">
+            </form>
+        </div>
+    </body>
+</html>

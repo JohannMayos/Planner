@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Planner - New Event</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Create New Event</h1>
+            <form action="/new event" method="POST">
+                <div class="txt_field">
+                    <input type="text" name="event_id">
+                    <span></span>
+                    <label>Event ID</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="title">
+                    <span></span>
+                    <label>Event Title</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="description">
+                    <span></span>
+                    <label>Event Description</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="date">
+                    <span></span>
+                    <label>Event Date</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="user_id">
+                    <span></span>
+                    <label>Event Owner ID</label>
+                </div>
+                <input type="submit" value="Create New Event" id="new_event">
+            </form>
+        </div>
+    </body>
+</html>

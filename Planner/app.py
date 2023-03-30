@@ -1,6 +1,9 @@
-import sqlite3
-
-from flask import Flask, session, render_template, request, flash, g, redirect, url_for
+from flask import Flask, request, session, redirect, url_for, render_template
+from database import engine
+from sqlalchemy import text
+from user import load_users_from_db, create_users_from_db
+from event import create_events_from_db, load_events_from_db, delete_event_by_id
+import connexion
 
 app = Flask(__name__)
 app.secret_key = "jfd0sfid09foifjds0fjfohsd9jdsfn"
@@ -16,12 +19,11 @@ def index():
     email = request.form["email"]
     password = request.form["password"]
 
-    for user in get_users():
+    for user in load_users_from_db():
         print(user)
-        if user[3] == email and user[4] == password:
+        if user["usuario_email"] == email and user["usuario_senha"] == password:
             session["user"] = user
             return redirect(url_for("calendar"))
-            flash("Welcome " + user[1])
 
     return render_template("index.html")
 
@@ -29,6 +31,14 @@ def index():
 @app.route("/logout")
 def logout():
     return render_template("index.html")
+
+@app.route("/createevent")
+def createevent():
+    return render_template("createevent.html")
+
+@app.route("/deleteevent")
+def deleteevent():
+    return render_template("deleteevent.html")
 
 
 @app.route("/signup")
@@ -40,46 +50,30 @@ def sign_up():
 def calendar():
     return render_template("Planner.html")
 
-
 @app.route("/cadastro", methods=["POST"])
 def sign_in():
+    user_id = request.form["user_id"]
     name = request.form["name"]
-    nickname = request.form["nickname"]
-    birthday = request.form["birthday"]
     email = request.form["email"]
     password = request.form["password"]
-    data = get_db()
-    cursor = data.cursor()
-    query1 = "INSERT INTO user VALUES('{n}','{nick}', '{bday}', '{email}', '{password}')".format(n=name, nick=nickname, bday=birthday, email=email, password=password)
-    cursor.execute(query1)
-    data.commit()
+    create_users_from_db(user_id, name, email, password, 0)
     return render_template("index.html")
 
+@app.route("/new event", methods=["POST"])
+def new_event():
+    event_id = request.form["event_id"]
+    title = request.form["title"]
+    description = request.form["description"]
+    date = request.form["date"]
+    user_id = request.form["user_id"]
+    create_events_from_db(event_id, title, description, date, 0, user_id)
+    return render_template("Planner.html")
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect('Planner.db')
-    return db
-
-
-def get_users():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect('Planner.db')
-        cursor = db.cursor()
-        query1 = "SELECT * FROM user"
-        cursor.execute(query1)
-        all_data = cursor.fetchall()
-    return all_data
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
+@app.route("/delete event", methods=["POST"])
+def delete_event():
+    event_id = request.form["event_id"]
+    delete_event_by_id(event_id)
+    return render_template("Planner.html")
 
 if __name__ == '__main__':
     app.run()
