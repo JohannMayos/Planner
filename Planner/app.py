@@ -40,6 +40,11 @@ def createevent():
 def deleteevent():
     return render_template("deleteevent.html")
 
+@app.route("/listevents")
+def listevents():
+    events = load_events_from_db()
+    return render_template("listevents.html", events = events)
+
 
 @app.route("/signup")
 def sign_up():

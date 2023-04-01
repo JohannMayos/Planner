@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Planner - Events</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Events</h1>
+                {% block content %}
+                <ul>
+                    {% for events in events %}
+                    <li>{{ title[evento_titulo] }} - {{date[evento_data]}}</li>
+                    {% endfor %}
+                </ul>
+                {% endblock %}
+        </div>
+    </body>
+</html>
